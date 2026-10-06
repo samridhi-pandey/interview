@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Signal · AI Interview Preparation Coach</title>
+  <meta name="description" content="From resume intelligence to adaptive interviews and delivery coaching. Know where you stand, then prove it.">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="app-shell">
+
+    <!-- ─── Sidebar ──────────────────────────────────────────── -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-icon">✦</div>
+        <span class="sidebar-brand-text">signal<span class="text-violet">.</span></span>
+        <button id="sidebarClose" class="sidebar-close" aria-label="Close menu">✕</button>
+      </div>
+
+      <div class="eyebrow sidebar-label">Workspace</div>
+      <nav class="nav-group" id="navGroup">
+        <button class="nav-link active" data-view="overview">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span>Overview</span>
+        </button>
+        <button class="nav-link" data-view="cv">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span>Resume intelligence</span>
+          <span class="nav-badge" id="navAtsBadge"></span>
+        </button>
+        <button class="nav-link" data-view="interview">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          <span>AI interview</span>
+        </button>
+        <button class="nav-link" data-view="coach">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l4.553-2.276A1 1 0 0 1 21 8.618v6.764a1 1 0 0 1-1.447.894L15 14v-4z"/><rect x="1" y="6" width="14" height="12" rx="2"/></svg>
+          <span>Delivery coach</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-promo">
+        <div class="sidebar-promo-icon">⚡</div>
+        <strong>Close the loop.</strong>
+        <p>Every interview insight updates what you should practice next.</p>
+      </div>
+    </aside>
+
+    <!-- ─── Main ─────────────────────────────────────────────── -->
+    <div class="main-wrapper">
+      <header class="top-header">
+        <div class="top-header-left">
+          <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Open menu">☰</button>
+          <div>
+            <p class="top-header-date" id="dateLabel"></p>
+            <h1 class="top-header-title">AI Interview Coach <span class="text-violet">✦</span></h1>
+          </div>
+        </div>
+        <div class="top-header-right">
+          <span id="modeBadge" style="font-size:.78rem;padding:4px 10px;border-radius:999px;background:rgba(117,103,238,.12);font-weight:600;color:var(--violet)">checking…</span>
+          <div class="header-avatar">U</div>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <!-- ═══ OVERVIEW ═══ -->
+        <section id="view-overview" class="panel">
+          <div class="hero-banner">
+            <div>
+              <p class="eyebrow">Your career readiness cockpit</p>
+              <h2>Know where you stand. <em>Then prove it.</em></h2>
+              <p>From resume intelligence to adaptive interviews and delivery coaching, Signal prepares you for a specific career destination.</p>
+            </div>
+          </div>
+
+          <!-- Module cards -->
+          <div class="grid-hero">
+            <div class="module-card active" id="goResumeCard">
+              <div class="module-header">
+                <div style="display:flex;align-items:flex-start;gap:12px">
+                  <span class="module-icon green">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                  </span>
+                  <div>
+                    <div class="eyebrow" style="color:var(--green)">Module 1 · Resume intelligence</div>
+                    <div class="module-title">Add your resume</div>
+                    <div class="module-desc">Get ATS compatibility, strengths, weaknesses and recommendations.</div>
+                  </div>
+                </div>
+                <span class="module-badge" id="resumeBadge">New</span>
+              </div>
+              <div class="module-stats" id="overviewResumeStats" style="display:none">
+                <div><p>ATS</p><p id="ovAts">—</p></div>
+                <div><p>Strengths</p><p id="ovStr">—</p></div>
+                <div><p>Gaps</p><p id="ovGap">—</p></div>
+              </div>
+            </div>
+
+            <div class="module-card-dark" id="goInterviewCard">
+              <div class="module-header">
+                <div style="display:flex;align-items:flex-start;gap:12px">
+                  <span class="module-icon violet">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                  </span>
+                  <div>
+                    <div class="eyebrow">Module 2 · AI interview</div>
+                    <div class="module-title">Practice your target role</div>
+                    <div class="module-desc">Run adaptive technical and HR rounds based on your resume and skill gaps.</div>
+                  </div>
+                </div>
+                <span style="color:rgba(255,255,255,.5);font-size:18px">›</span>
+              </div>
+              <div class="dark-stat-box">
+                <span style="font-size:10px;color:rgba(255,255,255,.55)">5-question adaptive interview</span>
+                <span style="font-size:14px;font-weight:600">Technical + HR</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Module 3: Delivery Coach overview card -->
+          <div class="module-card" id="goCoachCard" style="margin-bottom:20px">
+            <div class="module-header">
+              <div style="display:flex;align-items:flex-start;gap:12px">
+                <span class="module-icon blue">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l4.553-2.276A1 1 0 0 1 21 8.618v6.764a1 1 0 0 1-1.447.894L15 14v-4z"/><rect x="1" y="6" width="14" height="12" rx="2"/></svg>
+                </span>
+                <div>
+                  <div class="eyebrow" style="color:#4285f4">Module 3 · Delivery coach</div>
+                  <div class="module-title">Analyze your delivery</div>
+                  <div class="module-desc">Upload a video or record yourself. Get facial, vocal, and pacing analysis with actionable coaching feedback.</div>
+                </div>
+              </div>
+              <span class="module-badge" style="background:var(--info-bg);color:#4285f4">New</span>
+            </div>
+          </div>
+
+          <div class="app-footer">AI Interview Preparation Coach · TCS Tech Day AI Hackathon</div>
+        </section>
+
+        <!-- ═══ MODULE 1: CV ANALYZER ═══ -->
+        <section id="view-cv" class="panel hidden">
+          <div class="card">
+            <h2>Upload your CV</h2>
+            <p class="text-muted">PDF or DOCX, up to 5 MB. We extract the text, score it like an ATS, and give recommendations.</p>
+            <label id="dropzone" class="dropzone" for="cvFile">
+              <input id="cvFile" type="file" accept=".pdf,.docx" hidden>
+              <div class="drop-icon">📄</div>
+              <div><strong>Drag & drop your CV here</strong> or <span class="link">browse files</span></div>
+            </label>
+            <div id="fileInfo" class="file-info hidden"></div>
+            <div class="row">
+              <button id="analyzeBtn" class="btn btn-violet btn-big" disabled>Analyze CV</button>
+              <span id="cvLoading" class="loading hidden"><span class="spinner"></span> Analyzing your CV…</span>
+            </div>
+            <div id="cvError" class="error hidden"></div>
+          </div>
+
+          <div id="cvResult" class="hidden">
+            <div class="card">
+              <div id="cvNote" class="note hidden"></div>
+              <div class="report-top">
+                <div class="score-ring score-ring-big" id="atsRing">
+                  <svg viewBox="0 0 76 76"><circle cx="38" cy="38" r="28" fill="none" stroke="#e8e8ef" stroke-width="6"/><circle id="atsCircle" cx="38" cy="38" r="28" fill="none" stroke="var(--violet)" stroke-width="6" stroke-linecap="round" stroke-dasharray="175.93" stroke-dashoffset="175.93"/></svg>
+                  <div><span class="score-ring-value" id="atsScore">0</span><small>/ 100</small></div>
+                </div>
+                <div style="flex:1">
+                  <h2>ATS Score</h2>
+                  <p class="text-muted">Transparent, rule-based score computed from the text of your CV.</p>
+                  <div id="catBars" class="bars"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="card"><h3>Detected sections</h3><div id="sections" class="chips"></div></div>
+              <div class="card"><h3>Detected skills</h3><div id="skills" class="chips"></div></div>
+            </div>
+            <div class="grid-3">
+              <div class="card good"><h3>✅ Strengths</h3><ul id="strengths"></ul></div>
+              <div class="card warn"><h3>⚠️ Areas to improve</h3><ul id="areas"></ul></div>
+              <div class="card info"><h3>💡 Recommendations</h3><ul id="recs"></ul></div>
+            </div>
+            <details class="card"><summary>Extracted resume text (preview)</summary><pre id="cvPreview"></pre></details>
+            <div class="cta">
+              <button id="goInterview" class="btn btn-primary btn-big">Start AI Interview →</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══ MODULE 2: INTERVIEW ═══ -->
+        <section id="view-interview" class="panel hidden">
+          <!-- setup -->
+          <div id="setup" class="card">
+            <h2>Set up your mock interview</h2>
+            <div class="field">
+              <label>Interview domain</label>
+              <div class="seg" id="domainSeg">
+                <button class="seg-btn active" data-value="Technical"><strong>Technical</strong><small>Programming, DSA, OOP, DBMS, OS, Networks, Security and CS concepts</small></button>
+                <button class="seg-btn" data-value="HR"><strong>HR</strong><small>Introduction, teamwork, leadership, conflict, motivation, behavioral & situational</small></button>
+              </div>
+            </div>
+            <div class="field">
+              <label>Difficulty</label>
+              <div class="seg small" id="diffSeg">
+                <button class="seg-btn" data-value="Easy"><strong>Easy</strong></button>
+                <button class="seg-btn active" data-value="Medium"><strong>Medium</strong></button>
+                <button class="seg-btn" data-value="Hard"><strong>Hard</strong></button>
+              </div>
+            </div>
+            <div class="field">
+              <label>CV context <span class="text-muted">(optional)</span></label>
+              <div id="cvContext" class="cv-context"></div>
+            </div>
+            <div class="row">
+              <button id="startBtn" class="btn btn-violet btn-big">Start Interview</button>
+              <span id="startLoading" class="loading hidden"><span class="spinner"></span> Preparing your first question…</span>
+            </div>
+            <div id="startError" class="error hidden"></div>
+          </div>
+
+          <!-- question -->
+          <div id="qCard" class="card hidden">
+            <div class="progress"><div id="progressBar" class="progress-fill"></div></div>
+            <div class="q-meta">
+              <span id="qCount" class="pill">Question 1 of 5</span>
+              <span id="qTopic" class="pill soft"></span>
+              <span id="qType" class="pill soft"></span>
+            </div>
+            <h2 id="qText" class="question"></h2>
+            <textarea id="answerBox" rows="7" maxlength="4000" placeholder="Type your answer as you would say it in the interview…"></textarea>
+            <div class="row">
+              <button id="submitBtn" class="btn btn-violet">Submit answer</button>
+              <span id="charCount" class="text-muted">0 / 4000</span>
+              <span id="evalLoading" class="loading hidden"><span class="spinner"></span> Evaluating your answer…</span>
+            </div>
+            <div id="answerError" class="error hidden"></div>
+          </div>
+
+          <!-- feedback -->
+          <div id="fbCard" class="card hidden">
+            <div class="fb-head">
+              <div class="big-score"><span id="fbScore">0</span><small>/10</small></div>
+              <div class="sub-scores">
+                <div class="sub"><small>Communication</small><b id="fbComm">0</b></div>
+                <div class="sub"><small id="fbTechLabel">Technical Depth</small><b id="fbTech">0</b></div>
+                <div class="sub"><small>Confidence</small><b id="fbConf">0</b></div>
+              </div>
+            </div>
+            <div class="grid-2">
+              <div><h3>Strengths</h3><ul id="fbStrengths"></ul></div>
+              <div><h3>Areas for improvement</h3><ul id="fbImprove"></ul></div>
+            </div>
+            <h3>Feedback</h3><p id="fbText"></p>
+            <h3 style="margin-top:12px">Sample strong answer</h3><p id="fbIdeal" class="ideal"></p>
+            <div class="row">
+              <button id="nextBtn" class="btn btn-violet btn-big">Next question →</button>
+              <span id="reportLoading" class="loading hidden"><span class="spinner"></span> Generating your report…</span>
+            </div>
+            <div id="fbError" class="error hidden"></div>
+          </div>
+
+          <!-- report -->
+          <div id="reportCard" class="hidden">
+            <div class="card">
+              <div id="reportNote" class="note hidden"></div>
+              <h2>AI Interview Readiness Report</h2>
+              <p class="text-muted" id="reportMeta"></p>
+              <div class="report-top">
+                <div class="score-ring score-ring-big" id="readyRing">
+                  <svg viewBox="0 0 76 76"><circle cx="38" cy="38" r="28" fill="none" stroke="#e8e8ef" stroke-width="6"/><circle id="readyCircle" cx="38" cy="38" r="28" fill="none" stroke="var(--violet)" stroke-width="6" stroke-linecap="round" stroke-dasharray="175.93" stroke-dashoffset="175.93"/></svg>
+                  <div><span class="score-ring-value" id="readyPct">0</span><small>% ready</small></div>
+                </div>
+                <div class="report-stats">
+                  <div class="stat"><small>Overall score</small><b id="rOverall">0</b><span>/100</span></div>
+                  <div class="stat"><small>Communication</small><b id="rComm">0</b><span>/10</span></div>
+                  <div class="stat"><small id="rTechLabel">Technical Depth</small><b id="rTech">0</b><span>/10</span></div>
+                  <div class="stat"><small>Confidence</small><b id="rConf">0</b><span>/10</span></div>
+                </div>
+              </div>
+              <h3 style="margin-top:20px">Question scores</h3>
+              <div id="qScores" class="bars"></div>
+            </div>
+            <div class="grid-2">
+              <div class="card good"><h3>Strong areas</h3><ul id="rStrong"></ul></div>
+              <div class="card warn"><h3>Areas to improve</h3><ul id="rImprove"></ul></div>
+            </div>
+            <div class="card info"><h3>Top 3 recommendations</h3><ol id="rTips"></ol></div>
+            <div class="cta"><button id="restartBtn" class="btn btn-violet btn-big">Practice again</button></div>
+          </div>
+        </section>
+
+        <!-- ═══ MODULE 3: DELIVERY COACH ═══ -->
+        <section id="view-coach" class="panel hidden">
+          <div class="card" id="coachSetup">
+            <h2>Delivery Coach</h2>
+            <p class="text-muted" style="margin-bottom:16px">Record yourself or upload a video clip to get facial, vocal, and pacing analysis with actionable coaching feedback.</p>
+
+            <!-- Webcam mode -->
+            <div id="webcamArea" class="hidden">
+              <div class="webcam-preview">
+                <video id="webcamVideo" autoplay muted playsinline></video>
+              </div>
+              <div class="webcam-controls">
+                <button id="startRecordBtn" class="btn btn-violet btn-big">🔴 Start Recording</button>
+                <button id="stopRecordBtn" class="btn btn-primary btn-big hidden">⬛ Stop Recording</button>
+                <button id="cancelWebcamBtn" class="btn btn-ghost">Cancel</button>
+              </div>
+            </div>
+
+            <!-- Upload or webcam choice -->
+            <div id="coachChoices">
+              <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+                <button id="useWebcamBtn" class="btn btn-primary btn-big">📹 Record with Webcam</button>
+                <span class="text-muted" style="align-self:center">or</span>
+              </div>
+              <label id="coachDropzone" class="coach-upload" for="coachFile">
+                <input id="coachFile" type="file" accept="video/*,audio/*" hidden>
+                <div style="font-size:2.5rem">🎥</div>
+                <div><strong>Drop a video or audio file</strong> or <span class="link">browse</span></div>
+                <div class="text-muted">MP4, WebM, WAV, MP3 — up to 150 MB</div>
+              </label>
+            </div>
+
+            <div id="coachFileInfo" class="file-info hidden"></div>
+            <div class="row" id="coachActions">
+              <button id="coachAnalyzeBtn" class="btn btn-violet btn-big hidden">Analyze Delivery</button>
+              <button id="coachDemoBtn" class="btn btn-ghost">Try with sample video</button>
+              <span id="coachLoading" class="loading hidden"><span class="spinner"></span> Analyzing delivery (this may take a moment)…</span>
+            </div>
+            <div id="coachError" class="error hidden"></div>
+          </div>
+
+          <!-- Coach results -->
+          <div id="coachResult" class="hidden">
+            <div class="coach-scores">
+              <div class="coach-score-card">
+                <div class="label">Overall Delivery</div>
+                <div class="value text-violet" id="cOverall">—</div>
+                <div class="label">/100</div>
+              </div>
+              <div class="coach-score-card">
+                <div class="label">Confidence</div>
+                <div class="value" id="cConfidence" style="color:var(--green)">—</div>
+                <div class="label">/100</div>
+              </div>
+              <div class="coach-score-card">
+                <div class="label">Clarity</div>
+                <div class="value" id="cClarity" style="color:#4285f4">—</div>
+                <div class="label">/100</div>
+              </div>
+              <div class="coach-score-card">
+                <div class="label">Engagement</div>
+                <div class="value" id="cEngagement" style="color:var(--orange)">—</div>
+                <div class="label">/100</div>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="card good">
+                <h3>💪 Strengths</h3>
+                <ul id="coachStrengths"></ul>
+              </div>
+              <div class="card warn">
+                <h3>🎯 Areas for Improvement</h3>
+                <ul id="coachImprovements"></ul>
+              </div>
+            </div>
+
+            <div class="coach-metrics" id="coachMetricsArea">
+              <div class="card metric-group" id="facialMetrics">
+                <h3>👁️ Facial Analysis</h3>
+              </div>
+              <div class="card metric-group" id="vocalMetrics">
+                <h3>🎤 Vocal Analysis</h3>
+              </div>
+            </div>
+
+            <div class="card" id="transcriptCard" style="display:none">
+              <h3>📝 Transcript</h3>
+              <p id="coachTranscript" class="text-muted" style="margin-top:8px;white-space:pre-wrap"></p>
+            </div>
+
+            <div class="cta">
+              <button id="coachRetryBtn" class="btn btn-violet btn-big">Analyze another recording</button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
