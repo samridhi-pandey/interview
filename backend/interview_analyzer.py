@@ -1,4 +1,4 @@
-"""Interview Preparation AI Coach - Facial & Vocal Analysis Engine.
+﻿"""Interview Preparation AI Coach - Facial & Vocal Analysis Engine.
 
 This module delivers a self-contained, high-performance facial and vocal analysis pipeline
 for candidate interview practice. It ingests video/audio streams, extracts MediaPipe FaceMesh
@@ -29,12 +29,10 @@ except Exception:
 
 import numpy as np
 
-# Ensure parent workspaces are resolvable for modular imports
+# Make sibling modules (utils/) importable when run from any directory
 _CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-_PARENT_DIR = os.path.dirname(_CURRENT_DIR)
-for _p in [_CURRENT_DIR, _PARENT_DIR, r"C:\tcs", r"C:\multimodel-emotionAI"]:
-    if os.path.exists(_p) and _p not in sys.path:
-        sys.path.insert(0, _p)
+if _CURRENT_DIR not in sys.path:
+    sys.path.insert(0, _CURRENT_DIR)
 
 # Import feature extraction functions (self-contained within package or workspace)
 try:
@@ -1047,11 +1045,11 @@ class InterviewAnalyzer:
         # Pacing feedback
         elif 130.0 <= vocal.words_per_minute <= 160.0:
             strengths.append(
-                f"Optimal conversational pacing ({vocal.words_per_minute:.0f} WPM) within the ideal 130–160 WPM interview sweet spot."
+                f"Optimal conversational pacing ({vocal.words_per_minute:.0f} WPM) within the ideal 130â€“160 WPM interview sweet spot."
             )
         elif vocal.words_per_minute > 165.0:
             improvements.append(
-                f"Moderate speech tempo: currently at {vocal.words_per_minute:.0f} WPM (ideal: 130–160 WPM). Slow down slightly to allow your answers to resonate."
+                f"Moderate speech tempo: currently at {vocal.words_per_minute:.0f} WPM (ideal: 130â€“160 WPM). Slow down slightly to allow your answers to resonate."
             )
         elif 0 < vocal.words_per_minute < 115.0:
             improvements.append(
@@ -1173,3 +1171,4 @@ class InterviewAnalyzer:
 
         # Step 5: Synthesize Coaching Scores & Actionable Feedback
         return self.synthesize_coaching(facial_metrics, vocal_metrics, speech_metrics)
+

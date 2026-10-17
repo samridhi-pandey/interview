@@ -1,11 +1,11 @@
-"""Standalone CLI Test Runner for Interview Preparation AI Coach Engine.
+﻿"""Standalone CLI Test Runner for Interview Preparation AI Coach Engine.
 
 Runs comprehensive verification on:
 1. Filler word scanner & regex accuracy
 2. Vocal DSP prosody extraction & scoring
 3. Facial Action Unit analysis & poise geometry
 4. End-to-end multimodal pipeline on video clip
-5. Flask REST API endpoint verification (POST /analyze-interview)
+5. REST API endpoint verification (POST /api/coach/analyze)
 
 Usage:
     python interview_coach/test_analyzer.py
@@ -22,10 +22,9 @@ import numpy as np
 
 # Ensure parent and module directories are in sys.path
 _CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-_PARENT_DIR = os.path.dirname(_CURRENT_DIR)
-for _p in [_CURRENT_DIR, _PARENT_DIR, r"C:\tcs", r"C:\multimodel-emotionAI"]:
-    if os.path.exists(_p) and _p not in sys.path:
-        sys.path.insert(0, _p)
+_BACKEND_DIR = os.path.dirname(_CURRENT_DIR)
+if _BACKEND_DIR not in sys.path:
+    sys.path.insert(0, _BACKEND_DIR)
 
 from interview_analyzer import (
     FILLER_REGEX,
@@ -34,7 +33,9 @@ from interview_analyzer import (
     SpeechMetrics,
     VocalMetrics,
 )
-from server import app
+from fastapi.testclient import TestClient
+
+from main import app
 
 
 def generate_synthetic_audio(duration_s: float = 3.0, sample_rate: int = 16000) -> bytes:
@@ -135,7 +136,7 @@ def test_facial_analysis(analyzer: InterviewAnalyzer):
     """Validates MediaPipe FaceMesh AU calculation and poise metrics."""
     print("\n[3/5] Testing Facial Action Unit & Poise Analysis...")
     # Attempt to load benchmark thumbnail or generate synthetic frame
-    img_path = r"C:\multimodel-emotionAI\backend\benchmark_thumbnail.jpg"
+    img_path = os.path.join(_CURRENT_DIR, "benchmark_thumbnail.jpg")
     frames = []
     if os.path.exists(img_path):
         import cv2
@@ -161,7 +162,7 @@ def test_facial_analysis(analyzer: InterviewAnalyzer):
 def test_end_to_end_multimodal_pipeline(analyzer: InterviewAnalyzer) -> dict:
     """Executes full end-to-end multimodal interview coaching pipeline on a video file."""
     print("\n[4/5] Testing Full End-to-End Multimodal Pipeline on Video Clip...")
-    sample_mp4 = os.path.join(_CURRENT_DIR, "sample_interview.mp4")
+    sample_mp4 = os.path.join(_BACKEND_DIR, "sample_interview.mp4")
 
     # If sample clip does not exist, synthesize one
     if not os.path.exists(sample_mp4):
@@ -171,7 +172,7 @@ def test_end_to_end_multimodal_pipeline(analyzer: InterviewAnalyzer) -> dict:
         with open(temp_wav, "wb") as f:
             f.write(wav_bytes)
 
-        img_path = r"C:\multimodel-emotionAI\backend\benchmark_thumbnail.jpg"
+        img_path = os.path.join(_CURRENT_DIR, "benchmark_thumbnail.jpg")
         ffmpeg_exe = analyzer.ffmpeg_exe
         cmd = [
             ffmpeg_exe,
@@ -230,37 +231,35 @@ def test_end_to_end_multimodal_pipeline(analyzer: InterviewAnalyzer) -> dict:
     return res_dict
 
 
-def test_flask_api_endpoints():
-    """Validates the Flask REST API endpoint using the Flask test client."""
-    print("\n[5/5] Testing Flask API Endpoint (POST /analyze-interview)...")
-    client = app.test_client()
+def test_api_endpoints():
+    """Validates the FastAPI coach endpoints using the FastAPI test client."""
+    print("\n[5/5] Testing API Endpoint (POST /api/coach/analyze)...")
+    client = TestClient(app)
 
     # Health check
-    res_health = client.get("/health")
+    res_health = client.get("/api/coach/health")
     assert res_health.status_code == 200, f"Expected 200 from /health, got {res_health.status_code}"
-    print("  -> GET /health returned 200 OK.")
+    print("  -> GET /api/coach/health returned 200 OK.")
 
-    # Base64 audio payload test
+    # Multipart audio upload test
     wav_bytes = generate_synthetic_audio(duration_s=2.0)
-    b64_audio = base64.b64encode(wav_bytes).decode("utf-8")
 
     t0 = time.time()
     res_api = client.post(
-        "/analyze-interview",
-        json={"audio_base64": b64_audio},
-        content_type="application/json",
+        "/api/coach/analyze",
+        files={"file": ("synthetic.wav", wav_bytes, "audio/wav")},
     )
     elapsed = time.time() - t0
 
-    assert res_api.status_code == 200, f"Expected 200, got {res_api.status_code}: {res_api.data}"
-    json_data = res_api.get_json()
+    assert res_api.status_code == 200, f"Expected 200, got {res_api.status_code}: {res_api.text}"
+    json_data = res_api.json()
     assert json_data.get("success") is True, "API response success flag was not True"
     assert "overall_delivery_score" in json_data, "Missing overall_delivery_score in response"
     assert "metrics" in json_data, "Missing metrics in response"
     assert "strengths" in json_data, "Missing strengths in response"
     assert "actionable_improvements" in json_data, "Missing actionable_improvements in response"
 
-    print(f"  -> POST /analyze-interview returned 200 OK in {elapsed:.2f}s.")
+    print(f"  -> POST /api/coach/analyze returned 200 OK in {elapsed:.2f}s.")
     print("  -> PASSED: REST API test completed successfully.")
 
 
@@ -279,7 +278,7 @@ def main():
     test_silence_rejection(analyzer)
     test_facial_analysis(analyzer)
     final_output = test_end_to_end_multimodal_pipeline(analyzer)
-    test_flask_api_endpoints()
+    test_api_endpoints()
 
     total_time = time.time() - start_total
 
@@ -295,3 +294,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+

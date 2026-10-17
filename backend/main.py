@@ -133,7 +133,12 @@ async def coach_analyze(file: UploadFile = File(None)):
     """
     import base64
 
-    analyzer = _get_coach_analyzer()
+    try:
+        analyzer = _get_coach_analyzer()
+    except ImportError:
+        raise HTTPException(
+            503, "Delivery Coach dependencies are not installed. Run: pip install -r backend/requirements-coach.txt"
+        )
     temp_files = []
 
     try:
